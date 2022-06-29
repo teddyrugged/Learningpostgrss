@@ -1,15 +1,16 @@
 import psycopg2
 import sqlite3
+import os
 
-class dbfile:
+class DBFile:
 
     @staticmethod
     def connect():
-        conn = None
+        # conn = None
         try:
             conn = psycopg2.connect(
                 host='localhost', user='postgres', password='Holycraft@30',
-                dbname='my_db_decagon', port=5432)
+                dbname='my_db_decagon', port=os.getenv("PORT"))
 
             return conn
         except Exception as err:
@@ -17,7 +18,7 @@ class dbfile:
             # middle man
 
 
-class sqaliteDb:
+class SQliteDb:
 
     @staticmethod
     def connect():

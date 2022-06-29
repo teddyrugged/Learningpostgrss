@@ -1,9 +1,8 @@
 
-from models.dbfile import dbfile
+from models.dbfile import DBFile
 from psycopg2 import Error
+import psycopg2
 import psycopg2.extra as psy
-import datetime
-
 
 class User:
 
@@ -25,7 +24,7 @@ class User:
 
     @staticmethod
     def all():
-        conn = dbfile.connect()
+        conn = DBFile.connect()
         try:
             with conn.cursor(cursor_factory=psy.Dictcursor) as curr:
                 query = '''SELECT * FROM users ORDER BY id ASC;'''
@@ -46,7 +45,7 @@ class User:
 
     @classmethod
     def get(cls,id):
-        conn = dbfile.connect()
+        conn = DBFile.connect()
         try:
             cls.put_user(id=id)
             with conn.cursor(cursor_fsctor=psy.Dictcursor) as curr:
@@ -70,13 +69,18 @@ class User:
                 conn.close()
 
 
-    @classmethod
-    def create(cls, **params):
-        conn = dbfile.connect()
-        try:
-            created_at = str(datetime.datetime.now())[:11]
-            cls.put_user(username=params['username'],first_name = params['first_name'],last_name=params['last_name'],
-                         created_at= created_at, updated_at = created_at)
+    # @classmethod
+    # def create(cls, **params):
+    #     conn = DBFile.connect()
+    #     try:
+    #         created_at = str(datetime.datetime.now())[:11]
+    #         cls.put_user(username=params['username'],first_name = params['first_name'],last_name=params['last_name'],
+    #                      created_at= created_at, updated_at = created_at)
 
-            with conn.cursor(cursor_factory=psy.Dictcursor) as curr:
-                query =
+    #         with conn.cursor(cursor_factory=psy.Dictcursor) as curr:
+    #             query =
+
+
+    insert into users {value} where first_name = Josiah
+    f"""insert into users {value} where first_name = "{params['first_name']}"
+    """
